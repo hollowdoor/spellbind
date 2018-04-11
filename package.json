@@ -1,0 +1,46 @@
+{
+  "scripts": {
+    "build": "ebam",
+    "test": "echo \"no test\""
+  },
+  "name": "spellbind",
+  "description": "Signals!",
+  "keywords": [
+    "signal,event,dispatch",
+    "signal",
+    "event",
+    "dispatch"
+  ],
+  "version": "1.0.0",
+  "license": "MIT",
+  "ebam": {
+    "entry": "src/index.js",
+    "transforms": {
+      "dangerousForOf": false,
+      "dangerousTaggedTemplateString": false
+    },
+    "test": {
+      "dest": "test/code.js",
+      "src": "test/src.js"
+    }
+  },
+  "author": "Quentin Engles <hollowdoor99@gmail.com> (https://hollowdoor.github.io)",
+  "main": "dist/bundle.js",
+  "jsnext:main": "dist/bundle.es.js",
+  "module": "dist/bundle.es.js",
+  "dependencies": {
+    "es6-weak-map": "^2.0.2"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hollowdoor/spellbind.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hollowdoor/spellbind/issues"
+  },
+  "homepage": "https://github.com/hollowdoor/spellbind#readme"
+}

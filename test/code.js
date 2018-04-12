@@ -1158,11 +1158,44 @@ function connect(obj, name){
     return signals[name];
 }
 
+var SignalCollection = function SignalCollection(signals){
+    this.signals = signals;
+};
+SignalCollection.prototype.remove = function remove (){
+        var this$1 = this;
+
+    for(var i=0; i<this.signals.length; i++){
+        this$1.signals[i].remove();
+    }
+};
+
+connect.init = function(obj, listeners, ctx){
+    var keys = Object.keys(listeners);
+    var signals = [];
+
+    for(var i=0; i<keys.length; i++){
+        signals.push(
+            connect(obj, keys[i])
+            .add(listeners[keys[i]], ctx)
+        );
+    }
+
+    return new SignalCollection(signals);
+};
+
 var Listener = function Listener(){
     this.message = "I'm listening";
+
+    connect.init(this, {
+        messaged: function messaged(message){
+            console.log('message ',message);
+        }
+    });
 };
 
 var obj = new Listener();
+
+connect(obj, 'messaged').dispatch('Hello universe');
 
 var m = connect(obj, 'message 1');
 

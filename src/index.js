@@ -86,3 +86,28 @@ export function connect(obj, name){
 
     return signals[name];
 }
+
+class SignalCollection {
+    constructor(signals){
+        this.signals = signals;
+    }
+    remove(){
+        for(let i=0; i<this.signals.length; i++){
+            this.signals[i].remove();
+        }
+    }
+}
+
+connect.init = function(obj, listeners, ctx){
+    let keys = Object.keys(listeners);
+    let signals = [];
+
+    for(let i=0; i<keys.length; i++){
+        signals.push(
+            connect(obj, keys[i])
+            .add(listeners[keys[i]], ctx)
+        );
+    }
+
+    return new SignalCollection(signals);
+};

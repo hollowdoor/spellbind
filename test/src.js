@@ -3,10 +3,18 @@ import { connect } from '../';
 class Listener {
     constructor(){
         this.message = "I'm listening";
+
+        connect.init(this, {
+            messaged(message){
+                console.log('message ',message)
+            }
+        });
     }
 }
 
 let obj = new Listener();
+
+connect(obj, 'messaged').dispatch('Hello universe');
 
 let m = connect(obj, 'message 1')
 

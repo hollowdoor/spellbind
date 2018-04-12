@@ -1156,6 +1156,31 @@ function connect(obj, name){
     return signals[name];
 }
 
+var SignalCollection = function SignalCollection(signals){
+    this.signals = signals;
+};
+SignalCollection.prototype.remove = function remove (){
+        var this$1 = this;
+
+    for(var i=0; i<this.signals.length; i++){
+        this$1.signals[i].remove();
+    }
+};
+
+connect.init = function(obj, listeners, ctx){
+    var keys = Object.keys(listeners);
+    var signals = [];
+
+    for(var i=0; i<keys.length; i++){
+        signals.push(
+            connect(obj, keys[i])
+            .add(listeners[keys[i]], ctx)
+        );
+    }
+
+    return new SignalCollection(signals);
+};
+
 exports.connect = connect;
 
 return exports;
